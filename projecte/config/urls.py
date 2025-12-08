@@ -22,7 +22,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('setmana/', include('setmana.urls')) # inclou les urls de l'aplicació setmana
+    path('setmana/', include('setmana.urls')), # inclou les urls de l'aplicació setmana
+
+    path('personatges/', include('personatges.urls')),
 ]
 #serveix per les mostrar imatges
 if settings.DEBUG:

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if mode == "informacio" %}
+        {{ personatge.nom }}
+        {% else %}
+        Attack on Titans
+        {% endif %}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #1b1b1b;
+            color: #f5f5f5;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f5f5f5;
+            font-size: 2.5em;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .personatge-lista {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin: 30px auto;
+            max-width: 1200px;
+        }
+
+        .personatge-card {
+            display: block;
+            border: 2px solid rgba(245, 245, 245, 0.16);
+            border-radius: 12px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #f5f5f5;
+            text-decoration: none;
+        }
+
+        .personatge-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+        }
+
+        .personatge-card img {
+            width: 160px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(245, 245, 245, 0.16);
+        }
+
+        .personatge-card h3 {
+            margin: 10px 0 5px;
+            font-size: 1.2em;
+        }
+
+        img.personatge-principal {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            border: 3px solid #f5f5f5;
+            margin-top: 20px;
+        }
+
+        p.frase {
+            font-style: italic;
+            font-size: 1.2em;
+            margin-top: 15px;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        a.home-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 15px;
+            background: #2e7d32;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        a.home-link:hover {
+            background: #43a047;
+        }
+
+        .meme img {
+            max-width: 400px;
+            margin-top: 20px;
+            border: 2px solid #f5f5f5;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    {% if mode == "home" %}
+        <h1>Personatges d'Atac als Titans</h1>
+        <div class="personatge-lista">
+            {% for p in personatges %}
+            <a href="/personatges/{{ p.opcio }}/" class="personatge-card">
+                <img src="{{ p.img }}" alt="{{ p.nom }}">
+                <h3>{{ p.nom }}</h3>
+            </a>
+            {% endfor %}
+        </div>
+
+    {% elif mode == "informacio" %}
+        <h1>{{ personatge.nom }}</h1>
+        <img src="{{ personatge.img }}" alt="{{ personatge.nom }}" class="personatge-principal">
+        <p class="frase">"{{ personatge.frase }}"</p>
+        <p><a href="/personatges/home/" class="home-link">Tornar a Home</a></p>
+
+    {% elif mode == "error" %}
+        <h1>Error</h1>
+        <p>{{ missatge_error }}</p>
+        <div class="meme">
+            <img src="{{ meme_url }}" alt="Error meme">
+        </div>
+        <p><a href="/personatges/home/" class="home-link">Tornar a Home</a></p>
+    {% endif %}
+</body>
+</html>
