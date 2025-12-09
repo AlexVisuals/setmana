@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        {% if mode == "informacio" %}
+        {% if mode == "bio" %}
         {{ personatge.nom }}
         {% else %}
         Attack on Titans
@@ -108,28 +108,33 @@
 </head>
 <body>
     {% if mode == "home" %}
+        <!-- Vista principal amb tots els personatges -->
         <h1>Personatges d'Atac als Titans</h1>
         <div class="personatge-lista">
             {% for p in personatges %}
+            <!-- Targeta de cada personatge que porta a la seva bio -->
             <a href="/personatges/{{ p.opcio }}/" class="personatge-card">
                 <img src="{{ p.img }}" alt="{{ p.nom }}">
                 <h3>{{ p.nom }}</h3>
             </a>
             {% endfor %}
         </div>
-
-    {% elif mode == "informacio" %}
+    {% elif mode == "bio" %}
+        <!-- Vista de biografia d’un personatge -->
         <h1>{{ personatge.nom }}</h1>
         <img src="{{ personatge.img }}" alt="{{ personatge.nom }}" class="personatge-principal">
         <p class="frase">"{{ personatge.frase }}"</p>
+        <!-- Enllaç per tornar al menú principal -->
         <p><a href="/personatges/home/" class="home-link">Tornar a Home</a></p>
 
     {% elif mode == "error" %}
+        <!-- Vista d'error quan el personatge no existeix -->
         <h1>Error</h1>
         <p>{{ missatge_error }}</p>
         <div class="meme">
-            <img src="{{ meme_url }}" alt="Error meme">
+            <img src="{{ meme_url }}" alt="Error meme"> <!-- Imatge d'error -->
         </div>
+        <!-- Botó per tornar a la home -->
         <p><a href="/personatges/home/" class="home-link">Tornar a Home</a></p>
     {% endif %}
 </body>

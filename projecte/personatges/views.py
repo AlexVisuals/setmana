@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+# Diccionari amb tots els personatges i la seva informació
 personatges = {
     "Eren": {
         "nom": "Eren Jaeger",
@@ -36,27 +37,33 @@ personatges = {
 from django.shortcuts import render
 
 def home(request):
+    # Renderitzem la pàgina principal amb la llista de personatges
     return render(request, "home.html", {
         "mode": "home",
-        "personatges": personatges.values(),
+        "personatges": personatges.values(),  # enviem tots els personatges
     })
 
 def personatge(request, opcio):
+    # Si l'opció és "home", tornem al menú principal
     if opcio == "home":
         return home(request)
 
     personatge_trobat = None
+
+    # Busquem quin personatge coincideix amb l'opció
     for p in personatges.values():
         if p["opcio"] == opcio:
             personatge_trobat = p
             break
 
+    # Si existeix, mostrem la seva bio
     if personatge_trobat:
         return render(request, "home.html", {
-            "mode": "informacio",
+            "mode": "bio",
             "personatge": personatge_trobat,
         })
 
+    # Si no existeix, mostrem un error
     return render(request, "home.html", {
         "mode": "error",
         "meme_url": "/img/AOT/error.jpg",
